@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/corejola/ConstructorWordGuess/issues"
   },
-  "homepage": "https://github.com/corejola/ConstructorWordGuess#readme"
+  "homepage": "https://github.com/corejola/ConstructorWordGuess#readme",
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  }
 }
