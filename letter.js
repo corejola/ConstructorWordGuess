@@ -5,31 +5,17 @@
 // inquirer used here...
 // letter function constructor only deals with specific letters
 
-var testGuess = process.argv[2]
-var test = new Letter();
+// var testGuess = process.argv[2]
+// var test = new Letter();
 
-function Letter(input) {
-    this.letter = input;
-    this.guessed = false;
-    // determine spaces in the input word
-    this.string = function () {
-        if (this.letter === " ") {
-            this.guessed = true;
-            return " ";
-        } else {
-            if (this.guessed === false) {
-                return "_"
-            } else {
-                return this.letter
-            }
-        };
-    };
-    // letter guess logic
-    this.guess = function (guess) {
-        if (guess === this.letter) {
-            this.guessed = true;
-        }
-    };
-};
+class Letter {
+    constructor(letter) {
+        //turnary
+        this.character = (letter !== " ") ? "_" : " ";
+        this.letter = letter;
+        this.currentVal = this.character;
+        this.isLetter = false;
+    }
+}
 
 module.exports = Letter;
