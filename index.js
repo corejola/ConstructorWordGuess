@@ -1,7 +1,6 @@
 var Word = require("./word")
 var inquirer = require('inquirer');
 
-var guessCount = 0
 
 // 1. Upon running node index.js, game will prompt whether user wants to play Word Guess Game (Y/N)
 // if "N", display message "Ok Whatever"
@@ -12,7 +11,8 @@ var guessCount = 0
 
 // run random word, or create word bank file
 
-var words = ["beta", "sport", "crag", "trad"];
+var guessCount = 0
+var words = ["beta", "sport", "crag", "traditonal", "prusik"];
 //JS library for random word generation
 
 var randomGenerator = Math.floor(Math.random() * words.length);
@@ -43,17 +43,51 @@ function initiateGame() {
     currentWord.displayLetters();
     console.log("\n")
     // console.log(selectedWord)
-    // call on random word
-    // prompt game (Y/N)
-    // global
-
+    guessLetter();
 };
-
-initiateGame();
 
 // callbackA
 function guessLetter() {
-    // inquirer.prompt
+    if (gameState.totalGuesses > 0) {
+        // inquirer.prompt via recursion for gameState.totalGuesses
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "letter",
+                message: "Guess a letter?"
+            }
+        ]).then(function (answers) {
+            console.log(answers.letter)
+            // validation, if isNaN
+            // if (isNaN(answers.letter)) {
+            //     console.log("not a letter, choose letters only")
+            // }
+            currentWord.validateGuess(answers.letter, guessLetter, initiateGame, gameState);
+            // currentWord.displayLetters();
+
+            guessLetter();
+        })
+
+
+    }
+
+
+    // validation, if guesses left > 0 
+    // valdation if gueses left === 0 , promt play again, initiate game
+
+    // validation if letter has been already guessed
+    // if !guessesSoFar.includes(Inquirer Answer) { 
+    // guessesSoFar, + inquirer answer to guessesSoFar
+    // currentWord.validateGuess(Include Inquirer value, guessLetter()\, inigiateGame,gameState )
+
+    else {
+        console.log("You our out of guesses!" + "\nWould you like to play again?");
+        game();
+
+    }
+};
+
+function game() {
     inquirer.prompt([
         {
             type: "confirm",
@@ -61,22 +95,14 @@ function guessLetter() {
             message: "Would you like to play a game?"
         }
     ])
-        .then(answers => {
+        .then(function (answers) {
             if (answers.startGame) {
-                inquirer.prompt([
-                    console.log("start game")
-                ]).then
+                console.log("\nGuess a letter to determine the word!    ")
+                initiateGame();
+            } else {
+                console.log("See yah!")
             }
-            // Use user feedback for... whatever!!
         });
+};
 
-    // validation, if guesses left > 0 
-    // valdation if gueses left === 0 , promt play again, initiate game
-    // validation, if isNaN
-    // validation if letter has been already guessed
-    // if !guessesSoFar.includes(Inquirer Answer) { 
-    // guessesSoFar, + inquirer answer to guessesSoFar
-    // currentWord.validateGuess(Include Inquirer value, guessLetter()\, inigiateGame,gameState )
-    // }
-
-}
+game();

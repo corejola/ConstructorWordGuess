@@ -11,6 +11,12 @@ var Letter = require("./letter");
 // if letter is guess correctly, we will swap out "_" for the correct letter displayed
 // if letter is guess incorrectly, that letter wil be displayed as "Guesses:"...
 // pass a word through the constructor Letter function
+// String value to store the underlying charater of the letter
+// boolean value that store whether the letter has been guessed yet
+// function that returns the underlying character if the ltter has be guessed, or placeholder  if the letter has not been guessed yet
+// function that takes a character as an arguement and checks it against the underying character, updating the scotre boolean value to true if guessed correctly
+// inquirer used here...
+// letter function constructor only deals with specific letters
 
 // Word.wordsplit();
 
@@ -34,17 +40,16 @@ class Word {
             var newLetter = new Letter(letter);
             self.letterObjects.push(newLetter);
         })
+    };
 
-    }
     //display function
-
     displayLetters() {
         var self = this;
         this.letterObjects.forEach(function (letterObject) {
             self.display = self.display + letterObject.currentVal + " ";
         })
         console.log("Word To Guess: " + this.display);
-    }
+    };
 
     //validate function, this will be for all the letter guessing
     validateGuess(guessLetter, callbackA, callbackB, gameState) {
@@ -59,18 +64,30 @@ class Word {
                     //total guess --;
                     gameState.totalGuesses--;
                     //push into gameState
+                    console.log("Remaining Guesses: " + gameState.totalGuesses);
                     gameState.incorrectGuesses.push(guessLetter)
                 };
-            });
+            })
             var i = this.wordLetters.indexOf(guessLetter);
             this.wordLetters.splice(i, 1)
-            // check if word letters length ===0 means they win, gameState.wins++;
+            // check
+            if (self.wordLetters.length === 0) {
+
+                self.gameState.wins++;
+
+                console.log("You Win!");
+                callbackB();
+                // when player wins or guessesLeft =0; invoke the callbackB = initiateGame()
+            }
+
             // Display you win & final word
-            // when player wins or guessesLeft =0; invoke the callbackB = initiateGame()
 
             // check else if word letters !== 0, callbackA = guessLetters
+            else if (gameState.totalGuesses !== 0) {
+                callbackA();
+            }
         };
     };
-};
+}
 
 module.exports = Word;
