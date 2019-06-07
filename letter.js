@@ -5,17 +5,14 @@
 // inquirer used here...
 // letter function constructor only deals with specific letters
 
-// var testGuess = process.argv[2]
-// var test = new Letter();
-
 class Letter {
     constructor(letter) {
-        //turnary
+        //ternary 
         this.character = (letter !== " ") ? "_" : " ";
         this.letter = letter;
         this.currentVal = this.character;
         this.isLetter = false;
-    }
-}
+    };
+};
 
 module.exports = Letter;

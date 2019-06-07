@@ -51,9 +51,24 @@ function initiateGame() {
 
 initiateGame();
 
-callbackA
+// callbackA
 function guessLetter() {
     // inquirer.prompt
+    inquirer.prompt([
+        {
+            type: "confirm",
+            name: "startGame",
+            message: "Would you like to play a game?"
+        }
+    ])
+        .then(answers => {
+            if (answers.startGame) {
+                inquirer.prompt([
+                    console.log("start game")
+                ]).then
+            }
+            // Use user feedback for... whatever!!
+        });
 
     // validation, if guesses left > 0 
     // valdation if gueses left === 0 , promt play again, initiate game

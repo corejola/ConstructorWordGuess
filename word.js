@@ -26,7 +26,7 @@ class Word {
         this.letterObjects = [];
         this.createLetterObject();
 
-    }
+    };
     //create letter objects
     createLetterObject() {
         var self = this;
@@ -57,8 +57,10 @@ class Word {
                     letterObject.currentVal = guessLetter;
                 } else {
                     //total guess --;
-                    //push into gameState.incorrectGuesses.push(guessLetter)
-                }
+                    gameState.totalGuesses--;
+                    //push into gameState
+                    gameState.incorrectGuesses.push(guessLetter)
+                };
             });
             var i = this.wordLetters.indexOf(guessLetter);
             this.wordLetters.splice(i, 1)
@@ -67,12 +69,8 @@ class Word {
             // when player wins or guessesLeft =0; invoke the callbackB = initiateGame()
 
             // check else if word letters !== 0, callbackA = guessLetters
-
         };
     };
-
 };
-
-
 
 module.exports = Word;
